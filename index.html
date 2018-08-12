@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<html lang="pl-PL">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Js script test</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+
+		
+	</head>
+	<body>
+        <div class="player-score">
+            <h1>Player score:</h1>
+            <h1 id="player-score">-</h1>
+        </div>
+        <div class="computer-score">
+                <h1>Computer score:</h1>
+                <h1 id="computer-score">-</h1>
+            </div>
+        <div class="header">
+            <h1>Paper, Rock, scissors</h1>
+            <h2>Press "start new Game"</h2> 
+        </div>        
+        <div style="clear:both"></div>
+        <div>             
+            <button id="start-button" class="btn-start">Start new Game/restart</button>
+        </div> 
+        <div>
+            <h2>Choose your move.</h2>  
+        </div>
+        <div class="ico-container">                                     
+                <button id="paper-button" class="btn-game"><i class="far fa-hand-paper"></i></button>
+                <button id="rock-button" class="btn-game"><i class="far fa-hand-rock"></i></button>
+                <button id="scissors-button" class="btn-game"><i class="far fa-hand-scissors"></i></button>
+        </div>
+        <div id="result"></div>
+        <div id="first-output"></div>
+        <div id="level-cap"></div>  
+
+        <script src="script.js"></script>
+    </body>    
+</html>
