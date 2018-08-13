@@ -12,6 +12,8 @@
 		
 	</head>
 	<body>
+        
+
         <div class="player-score">
             <h1>Player score:</h1>
             <h1 id="player-score">-</h1>
@@ -42,6 +44,32 @@
         <div id="result"></div>
         <div id="first-output"></div>
         <div id="level-cap"></div> 
+
+        
+
+        <div class="overlay" id="modal-overlay">
+            <div class="modal" id="modal-one">
+                <a href="#" class="close">x</a>
+                <header>You WON entire GAME!!! Click Start new Game.</header>
+                <div class="content" id="for-table">
+                    <p>Tabela z wynikiem gry</p>
+                </div>
+            </div>
+            <div class="modal" id="modal-two">
+                <a href="#" class="close">x</a>
+                <header>You LOST, Computer WON! Click Start new Game.</header>
+                <div class="content" id="for-table2">
+                    <p>Tabela z wynikiem Gry</p>
+                </div>
+            </div>
+            <div class="modal" id="modal-three">
+                <a href="#" class="close">x</a>
+                <header>Modal three</header>
+                <div class="content">
+                    <p>Dolor sit amet!</p>
+                </div>
+            </div>
+        </div> 
         
 
         <script src="script.js"></script>

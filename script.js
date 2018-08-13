@@ -7,29 +7,7 @@
             output.innerHTML = '<h4>'+'<b>'+ wonValue + '</b>' + ' you played ' + '<b>'+ playerFinal +'</b>'+ ', computer played '+'<b>' + computerFinal +'</b>'+ '<br></h4>';                
         }
         
-        // Game basic logic.
-        var palyerMove = function(playerFinal){ 
-            var won = 'YOU WON!:'; 
-            var lost = 'YOU LOST :(';
-            var draw = 'IS DEAD-HEAD:'; 
-            var computerFinal = computerChoice(); 
-            params.roundsPlayed += 1;                     
-            if (playerFinal == 'paper' && computerFinal == 'paper' || playerFinal == 'rock' && computerFinal == 'rock' || playerFinal == 'scissors' && computerFinal == 'scissors') {                    
-                    outputMessageGame(draw, playerFinal, computerFinal);
-            }
-            else if (playerFinal == 'paper' && computerFinal == 'rock' || playerFinal == 'rock' && computerFinal == 'scissors' || playerFinal == 'scissors' && computerFinal == 'paper') {                        
-                    outputMessageGame(won, playerFinal, computerFinal);
-                    params.userWinRate += 1;
-                    return params.userWinRate; 
-            }
-            else if (playerFinal == 'paper' && computerFinal == 'scissors' || playerFinal == 'rock' && computerFinal == 'paper' || playerFinal == 'scissors' && computerFinal == 'rock') {
-                    outputMessageGame(lost, playerFinal, computerFinal);
-                    params.computerWinRate += 1;
-                    return params.computerWinRate;                     
-            }   
-            
-            //return params.roundsPlayed;              
-        }  
+        // Game basic logic.        
 
         var computerChoice = function() {
             var randomNumber = Math.random();
@@ -48,22 +26,88 @@
             }                              
         }  
         
+        
+        var sux = function() {
+            for (var i = 0; i < params.progress.length; i++) {
+                var rou = params.progress[i].round;
+                var pla = params.progress[i].player;
+               var com = params.progress[i].computer;
+               var win = params.progress[i].winnerIs;
+                var statu = params.progress[i].roundStatus;
+                
+                outputModalContent.innerHTML += '<span style="margin: 0 auto">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + rou + '</td>' + '<td>' + pla + '</td>' + '<td>' + com + '</td>' + '</tr>' + '</table>'+'</span>';
+               //outputModalContent.innerHTML += ('round: '+rou+'/'+pla+'/'+com+'/'+win+'/'+statu+'/'+'<br>');                               
+           }  
+           document.querySelector('#modal-overlay').classList.add('show');
+           document.querySelector('#modal-one').classList.add('show');
+           document.querySelector('#modal-two').classList.remove('show');           
+           
+        } 
+        var sux2 = function() {
+            for (var i = 0; i < params.progress.length; i++) {
+                var rou = params.progress[i].round;
+                var pla = params.progress[i].player;
+                var com = params.progress[i].computer;
+                var win = params.progress[i].winnerIs;
+                var statu = params.progress[i].roundStatus;
+                outputModalContent2.innerHTML += outputModalContent.innerHTML += '<span style="margin: 0 auto">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + rou + '</td>' + '<td>' + pla + '</td>' + '<td>' + com + '</td>' + '</tr>' + '</table>'+'</span>';
+            }  
+            document.querySelector('#modal-overlay').classList.add('show');
+            document.querySelector('#modal-two').classList.add('show');
+            document.querySelector('#modal-one').classList.remove('show');
+        }       
+
         function handleClick(choice) {
             if (params.userWinRate < params.levelCap && params.computerWinRate < params.levelCap ){                                      
-                palyerMove(choice);
-                //output2.innerHTML = 'Your score: ' + userWinRate + '. Computer score:'+ computerWinRate + ' .<br> ';
+                palyerMove(choice);                
                 outputPlayer.innerHTML = params.userWinRate;
                 outputComputer.innerHTML = params.computerWinRate;
                 outputRoundsPlayed.innerHTML = '<h2>'+params.roundsPlayed + '/' + params.levelCap+ '</h2>';
            }      
-           else if (params.userWinRate == params.levelCap && params.computerWinRate < params.levelCap) {
-               alert('You WON entire GAME!!! Click Start new Game.');
+           else if (params.userWinRate == params.levelCap && params.computerWinRate < params.levelCap) {                        
+                    sux();
+                    //stopPropagation;
            }
-           else if (params.computerWinRate == params.levelCap && params.userWinRate < params.levelCap) {
-               alert('You LOST, Computer WON! Click Start new Game.');
-           }                   
-        }
-        /*Functions END*/  
+           else if (params.computerWinRate == params.levelCap && params.userWinRate < params.levelCap) { 
+                    sux2();
+                    //stopPropagation;
+            }                                  
+        }        
+
+        var palyerMove = function(playerFinal){ 
+            var won = 'YOU WON!:'; 
+            var lost = 'YOU LOST :(';
+            var draw = 'IS DEAD-HEAD:'; 
+            var computerFinal = computerChoice();            
+            var roundStatus;
+            params.roundsPlayed += 1;   
+            if (playerFinal == 'paper' && computerFinal == 'paper' || playerFinal == 'rock' && computerFinal == 'rock' || playerFinal == 'scissors' && computerFinal == 'scissors') {                    
+                    outputMessageGame(draw, playerFinal, computerFinal);
+                    roundStatus = ' player ' + params.userWinRate + '/'+params.computerWinRate+ ' computer';
+                    params.progress.push({round: params.roundsPlayed, player: playerFinal, computer: computerFinal, winnerIs: draw , roundStatus: roundStatus
+                    });            
+            }
+            else if (playerFinal == 'paper' && computerFinal == 'rock' || playerFinal == 'rock' && computerFinal == 'scissors' || playerFinal == 'scissors' && computerFinal == 'paper') {                        
+                    outputMessageGame(won, playerFinal, computerFinal);
+                    params.userWinRate += 1;
+                    roundStatus = ' player ' + params.userWinRate + '/'+params.computerWinRate+ ' computer';
+                    params.progress.push({round: params.roundsPlayed, player: playerFinal, computer: computerFinal, winnerIs: won, roundStatus: roundStatus
+                    });
+                    return params.userWinRate; 
+                                    
+            }
+            else if (playerFinal == 'paper' && computerFinal == 'scissors' || playerFinal == 'rock' && computerFinal == 'paper' || playerFinal == 'scissors' && computerFinal == 'rock') {
+                    outputMessageGame(lost, playerFinal, computerFinal);
+                    params.computerWinRate += 1; 
+                    var roundStatus = ' player ' + params.userWinRate + '/'+params.computerWinRate+ ' computer';
+                    params.progress.push({round: params.roundsPlayed, player: playerFinal, computer: computerFinal, winnerIs: lost, roundStatus: roundStatus
+                    });
+                    return params.computerWinRate;  
+            }               
+        }      
+        /*Functions END*/ 
+        //test
+
 
         /*Vars*/         
         var output = document.getElementById('first-output');
@@ -73,13 +117,25 @@
         var outputPlayer = document.getElementById('player-score');
         var outputComputer = document.getElementById('computer-score');
         var outputLevelCap = document.getElementById('level-cap');  
-        var outputRoundsPlayed = document.getElementById('rounds-played');
-        //var levelCap;   
-        var params = {userWinRate: 0, computerWinRate: 0, roundsPlayed: 0, levelCap: 0};
-                   
+        var outputRoundsPlayed = document.getElementById('rounds-played'); 
+        var outputModalContent = document.getElementById('for-table');
+        var outputModalContent2 = document.getElementById('for-table2');
+        var endGame = false;
+        var winner;
+        ///
+        //var progress = [];
+        //var progressObject = {round: 0};
+
+        var params = {userWinRate: 0, 
+                        computerWinRate: 0, 
+                        roundsPlayed: 0, 
+                        levelCap: 0,
+                        progress:[]
+                    };
         
         //Rest 
-        startButton.addEventListener('click', function() { 
+        startButton.addEventListener('click', function() {  
+            params.progress = [];
             params.userWinRate = 0;
             params.computerWinRate = 0;
             params.roundsPlayed = 0;
@@ -89,43 +145,61 @@
                 outputPlayer.innerHTML = '-';
                 outputComputer.innerHTML = '-';
                 output2.innerHTML = '';
-                output.innerHTML = '';                        
+                output.innerHTML = ''; 
+                outputModalContent.innerHTML = 'Game table';
+                outputModalContent2.innerHTML = 'Game table';                          
                 outputLevelCap.innerHTML = 'Hello! You set '+ '<b>' + params.levelCap +'</b>'+' score limit to the end of the game.<br>' ;  
-
             }
             else {
                 outputLevelCap.innerHTML = 'Hello stranger, set correct round number! (1-99999)' + '<br><br>';
             }
-            return params.userWinRate; 
-            return params.computerWinRate;              
-            return params.roundsPlayed;
-            return params.levelCap; 
-        });       
+            return params.userWinRate, params.computerWinRate, params.roundsPlayed, params.levelCap; 
+        });             
         
-        
-        
-        
-        //paperButton.getAttribute("data-move");
-        //document.write(paperButton.getAttribute("data-move"));
-        for ( var i = 0; i < playableButtons.length; i++ ) {
-            //var buttonAtributes2 = ['paper', 'rock', 'scissors'];            
-            //var buttonAtributes = playableButtons[i].getAttribute("data-move");            
-            //document.write('to jest atrybut przycisku ze zmiennej: '+ buttonAtributes + ' , ' );                     
-            playableButtons[i].addEventListener('click', function(event) {  
-               //var targett = event.target || event.srcElement;              
-               //var valueButton = targett.getAttribute("data-move");
+        for ( var i = 0; i < playableButtons.length; i++ ) {                           
+            playableButtons[i].addEventListener('click', function(event) { 
                var valueButton = this.getAttribute("data-move");
-               //console.log('test', valueButton);
-               handleClick(valueButton);  
-               //event.stopPropagation();             
-               /*
-                for ( var i = 0; i < playableButtons.length; i++ ) {
-                    handleClick(playableButtons[i].getAttribute("data-move"));
-                }
-                */
+               handleClick(valueButton); 
             });
-        }        
+        }
         
+        // MODALS Scripts
+       
+        var modalLinks = document.querySelectorAll('.show-modal');
+        for(var i = 0; i < modalLinks.length; i++){        
+            modalLinks[i].addEventListener('click', showModal);  
+             
+        }
+        
+        // Close modal
+    
+        var hideModal = function(event){
+            event.preventDefault();
+            document.querySelector('#modal-overlay').classList.remove('show');
+            outputModalContent.innerHTML = '';
+            outputModalContent2.innerHTML = '';
+        };
+        
+        var closeButtons = document.querySelectorAll('.modal .close');
+        
+        for(var i = 0; i < closeButtons.length; i++){
+            closeButtons[i].addEventListener('click', hideModal);
+        }
+        
+        // Overlay click close
+        
+        document.querySelector('#modal-overlay').addEventListener('click', hideModal);
+        
+        // Overlay stop propagination 
+        
+        var modals = document.querySelectorAll('.modal');
+        
+        for(var i = 0; i < modals.length; i++){
+            modals[i].addEventListener('click', function(event){
+                event.stopPropagation();
+            });
+        }	
+    
 
 
 

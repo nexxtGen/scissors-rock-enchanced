@@ -4,6 +4,14 @@ body {
     background: lightgreen;
     font-family: 'Indie Flower', cursive;
 }
+
+ td {
+	border: 1px solid blue;
+	padding: 3px;
+	width: 80px;
+	text-align: center;
+	
+}
 .player-score {
     margin: 55px auto;
     width: 33%;
@@ -83,7 +91,7 @@ button {
 // MOdal
 
 .container {
-	max-width: 400px; 
+	max-width: 600px; 
 	margin: 0 auto;
 }
 
@@ -104,11 +112,13 @@ button {
 .modal {
 	display: none;
 	background: #fff;
-	width: 200px;
+	width: 500px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate3d(-50%, -50%, 0);
+    transform: translate3d(-50%, -50%, 0);
+    padding: 20px;
+    background-color: aquamarine;
 
 	&.show {
 		display: block;
