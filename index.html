@@ -31,14 +31,18 @@
         <div>
             <h2>Choose your move.</h2>  
         </div>
+        <div id="rounds-played">
+            <h2>Liczba rozegranych rund</h2>            
+        </div>  
         <div class="ico-container">                                     
-                <button id="paper-button" class="btn-game"><i class="far fa-hand-paper"></i></button>
-                <button id="rock-button" class="btn-game"><i class="far fa-hand-rock"></i></button>
-                <button id="scissors-button" class="btn-game"><i class="far fa-hand-scissors"></i></button>
+                <button id="paper-button" class="btn-game player-move" data-move="paper"><i class="far fa-hand-paper"></i></button>
+                <button id="rock-button" class="btn-game player-move" data-move="rock"><i class="far fa-hand-rock"></i></button>
+                <button id="scissors-button" class="btn-game player-move" data-move="scissors"><i class="far fa-hand-scissors"></i></button>
         </div>
         <div id="result"></div>
         <div id="first-output"></div>
-        <div id="level-cap"></div>  
+        <div id="level-cap"></div> 
+        
 
         <script src="script.js"></script>
     </body>    
