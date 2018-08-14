@@ -1,0 +1,23 @@
+{
+  "name": "scissors-rock-enchanced",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nexxtGen/scissors-rock-enchanced.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nexxtGen/scissors-rock-enchanced/issues"
+  },
+  "homepage": "https://github.com/nexxtGen/scissors-rock-enchanced#readme",
+  "devDependencies": {
+    "browser-sync": "^2.24.6"
+  }
+}
