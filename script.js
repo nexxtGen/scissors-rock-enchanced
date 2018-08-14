@@ -27,15 +27,14 @@
         }  
         
         
-        var sux = function() {
+        var table1 = function() {
             for (var i = 0; i < params.progress.length; i++) {
                 var rou = params.progress[i].round;
                 var pla = params.progress[i].player;
                var com = params.progress[i].computer;
                var win = params.progress[i].winnerIs;
-                var statu = params.progress[i].roundStatus;
-                
-                outputModalContent.innerHTML += '<span style="margin: 0 auto">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + rou + '</td>' + '<td>' + pla + '</td>' + '<td>' + com + '</td>' + '</tr>' + '</table>'+'</span>';
+                var statu = params.progress[i].roundStatus;                
+                outputModalContent.innerHTML += '<span style="margin: 0 auto">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + rou + '</td>' + '<td>' + pla + '</td>' + '<td>' + com + '</td>'+ '<td>' + win + '</td>'+ '<td>' + statu + '</td>' + '</tr>' + '</table>'+'</span>';
                //outputModalContent.innerHTML += ('round: '+rou+'/'+pla+'/'+com+'/'+win+'/'+statu+'/'+'<br>');                               
            }  
            document.querySelector('#modal-overlay').classList.add('show');
@@ -43,14 +42,14 @@
            document.querySelector('#modal-two').classList.remove('show');           
            
         } 
-        var sux2 = function() {
+        var table2 = function() {
             for (var i = 0; i < params.progress.length; i++) {
                 var rou = params.progress[i].round;
                 var pla = params.progress[i].player;
                 var com = params.progress[i].computer;
                 var win = params.progress[i].winnerIs;
                 var statu = params.progress[i].roundStatus;
-                outputModalContent2.innerHTML += outputModalContent.innerHTML += '<span style="margin: 0 auto">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + rou + '</td>' + '<td>' + pla + '</td>' + '<td>' + com + '</td>' + '</tr>' + '</table>'+'</span>';
+                outputModalContent2.innerHTML += '<span style="margin: 0 auto">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + rou + '</td>' + '<td>' + pla + '</td>' + '<td>' + com + '</td>'+ '<td>' + win + '</td>'+ '<td>' + statu + '</td>' + '</tr>' + '</table>'+'</span>';
             }  
             document.querySelector('#modal-overlay').classList.add('show');
             document.querySelector('#modal-two').classList.add('show');
@@ -62,14 +61,16 @@
                 palyerMove(choice);                
                 outputPlayer.innerHTML = params.userWinRate;
                 outputComputer.innerHTML = params.computerWinRate;
-                outputRoundsPlayed.innerHTML = '<h2>'+params.roundsPlayed + '/' + params.levelCap+ '</h2>';
+                outputRoundsPlayed.innerHTML = '<h2> Move count: '+params.roundsPlayed+'</h2>';
            }      
-           else if (params.userWinRate == params.levelCap && params.computerWinRate < params.levelCap) {                        
-                    sux();
+           else if (params.userWinRate == params.levelCap && params.computerWinRate < params.levelCap) { 
+                    outputModalContent.innerHTML += '<span style="margin: 0 auto; font-weight: bold;">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + 'round' + '</td>' + '<td>' + 'player move' + '</td>' + '<td>' + 'computer move' + '</td>'+ '<td>' + 'win/lost' + '</td>'+ '<td>' + 'game status' + '</td>' + '</tr>' + '</table>'+'</span>';                       
+                    table1();
                     //stopPropagation;
            }
            else if (params.computerWinRate == params.levelCap && params.userWinRate < params.levelCap) { 
-                    sux2();
+                    outputModalContent2.innerHTML += '<span style="margin: 0 auto; font-weight: bold;">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + 'round' + '</td>' + '<td>' + 'player move' + '</td>' + '<td>' + 'computer move' + '</td>'+ '<td>' + 'win/lost' + '</td>'+ '<td>' + 'game status' + '</td>' + '</tr>' + '</table>'+'</span>';
+                    table2();
                     //stopPropagation;
             }                                  
         }        
@@ -83,13 +84,14 @@
             params.roundsPlayed += 1;   
             if (playerFinal == 'paper' && computerFinal == 'paper' || playerFinal == 'rock' && computerFinal == 'rock' || playerFinal == 'scissors' && computerFinal == 'scissors') {                    
                     outputMessageGame(draw, playerFinal, computerFinal);
-                    roundStatus = ' player ' + params.userWinRate + '/'+params.computerWinRate+ ' computer';
+                    roundStatus = ' player ' + params.userWinRate + '/'+params.computerWinRate+ ' computer';                    
                     params.progress.push({round: params.roundsPlayed, player: playerFinal, computer: computerFinal, winnerIs: draw , roundStatus: roundStatus
                     });            
             }
             else if (playerFinal == 'paper' && computerFinal == 'rock' || playerFinal == 'rock' && computerFinal == 'scissors' || playerFinal == 'scissors' && computerFinal == 'paper') {                        
                     outputMessageGame(won, playerFinal, computerFinal);
                     params.userWinRate += 1;
+                    
                     roundStatus = ' player ' + params.userWinRate + '/'+params.computerWinRate+ ' computer';
                     params.progress.push({round: params.roundsPlayed, player: playerFinal, computer: computerFinal, winnerIs: won, roundStatus: roundStatus
                     });
@@ -99,6 +101,7 @@
             else if (playerFinal == 'paper' && computerFinal == 'scissors' || playerFinal == 'rock' && computerFinal == 'paper' || playerFinal == 'scissors' && computerFinal == 'rock') {
                     outputMessageGame(lost, playerFinal, computerFinal);
                     params.computerWinRate += 1; 
+                     
                     var roundStatus = ' player ' + params.userWinRate + '/'+params.computerWinRate+ ' computer';
                     params.progress.push({round: params.roundsPlayed, player: playerFinal, computer: computerFinal, winnerIs: lost, roundStatus: roundStatus
                     });
@@ -163,13 +166,8 @@
             });
         }
         
-        // MODALS Scripts
-       
-        var modalLinks = document.querySelectorAll('.show-modal');
-        for(var i = 0; i < modalLinks.length; i++){        
-            modalLinks[i].addEventListener('click', showModal);  
-             
-        }
+        // MODALS Scripts      
+        
         
         // Close modal
     
