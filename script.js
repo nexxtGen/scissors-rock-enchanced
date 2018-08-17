@@ -20,41 +20,24 @@
                var computerChoice = 'rock';
                return computerChoice;  
             }
-            else if (computerNumber == 3) {
-               var computerChoice = 'scissors';
-               return computerChoice;  
+            else {               
+               return 'scissors';  
             }                              
-        }  
+        }          
         
-        
-        var table1 = function() {
+        var generateEndgameTable = function(outputModalElement, showModalId, hideModalId ) {
             for (var i = 0; i < params.progress.length; i++) {
-                var rou = params.progress[i].round;
-                var pla = params.progress[i].player;
-               var com = params.progress[i].computer;
-               var win = params.progress[i].winnerIs;
-                var statu = params.progress[i].roundStatus;                
-                outputModalContent.innerHTML += '<span style="margin: 0 auto">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + rou + '</td>' + '<td>' + pla + '</td>' + '<td>' + com + '</td>'+ '<td>' + win + '</td>'+ '<td>' + statu + '</td>' + '</tr>' + '</table>'+'</span>';
-               //outputModalContent.innerHTML += ('round: '+rou+'/'+pla+'/'+com+'/'+win+'/'+statu+'/'+'<br>');                               
+                var round = params.progress[i].round;
+                var playerChoice = params.progress[i].player;
+                var computerChoice = params.progress[i].computer;
+                var roundWinner = params.progress[i].winnerIs;
+                var roundStatus = params.progress[i].roundStatus;
+                outputModalElement.innerHTML += '<span style="margin: 0 auto">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + round + '</td>' + '<td>' + playerChoice + '</td>' + '<td>' + computerChoice + '</td>'+ '<td>' + roundWinner + '</td>'+ '<td>' + roundStatus + '</td>' + '</tr>' + '</table>'+'</span>';                                              
            }  
            document.querySelector('#modal-overlay').classList.add('show');
-           document.querySelector('#modal-one').classList.add('show');
-           document.querySelector('#modal-two').classList.remove('show');           
-           
+           document.querySelector(showModalId).classList.add('show');
+           document.querySelector(hideModalId).classList.remove('show');    
         } 
-        var table2 = function() {
-            for (var i = 0; i < params.progress.length; i++) {
-                var rou = params.progress[i].round;
-                var pla = params.progress[i].player;
-                var com = params.progress[i].computer;
-                var win = params.progress[i].winnerIs;
-                var statu = params.progress[i].roundStatus;
-                outputModalContent2.innerHTML += '<span style="margin: 0 auto">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + rou + '</td>' + '<td>' + pla + '</td>' + '<td>' + com + '</td>'+ '<td>' + win + '</td>'+ '<td>' + statu + '</td>' + '</tr>' + '</table>'+'</span>';
-            }  
-            document.querySelector('#modal-overlay').classList.add('show');
-            document.querySelector('#modal-two').classList.add('show');
-            document.querySelector('#modal-one').classList.remove('show');
-        }       
 
         function handleClick(choice) {
             if (params.userWinRate < params.levelCap && params.computerWinRate < params.levelCap ){                                      
@@ -65,12 +48,12 @@
            }      
            else if (params.userWinRate == params.levelCap && params.computerWinRate < params.levelCap) { 
                     outputModalContent.innerHTML += '<span style="margin: 0 auto; font-weight: bold;">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + 'round' + '</td>' + '<td>' + 'player move' + '</td>' + '<td>' + 'computer move' + '</td>'+ '<td>' + 'win/lost' + '</td>'+ '<td>' + 'game status' + '</td>' + '</tr>' + '</table>'+'</span>';                       
-                    table1();
+                    generateEndgameTable(outputModalContent, '#modal-one', '#modal-two');
                     //stopPropagation;
            }
            else if (params.computerWinRate == params.levelCap && params.userWinRate < params.levelCap) { 
                     outputModalContent2.innerHTML += '<span style="margin: 0 auto; font-weight: bold;">'+'<table style="border: 1px solid black;">' + '<tr>' + '<td>' + 'round' + '</td>' + '<td>' + 'player move' + '</td>' + '<td>' + 'computer move' + '</td>'+ '<td>' + 'win/lost' + '</td>'+ '<td>' + 'game status' + '</td>' + '</tr>' + '</table>'+'</span>';
-                    table2();
+                    generateEndgameTable(outputModalContent2, '#modal-two', '#modal-one');
                     //stopPropagation;
             }                                  
         }        
@@ -108,9 +91,7 @@
                     return params.computerWinRate;  
             }               
         }      
-        /*Functions END*/ 
-        //test
-
+        /*Functions END*/  
 
         /*Vars*/         
         var output = document.getElementById('first-output');
@@ -122,12 +103,7 @@
         var outputLevelCap = document.getElementById('level-cap');  
         var outputRoundsPlayed = document.getElementById('rounds-played'); 
         var outputModalContent = document.getElementById('for-table');
-        var outputModalContent2 = document.getElementById('for-table2');
-        var endGame = false;
-        var winner;
-        ///
-        //var progress = [];
-        //var progressObject = {round: 0};
+        var outputModalContent2 = document.getElementById('for-table2'); 
 
         var params = {userWinRate: 0, 
                         computerWinRate: 0, 
@@ -166,9 +142,7 @@
             });
         }
         
-        // MODALS Scripts      
-        
-        
+        // MODALS Scripts  
         // Close modal
     
         var hideModal = function(event){
