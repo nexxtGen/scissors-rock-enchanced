@@ -9,8 +9,21 @@ body {
 	border: 1px solid blue;
 	padding: 3px;
 	width: 80px;
-	text-align: center;
-	
+	text-align: center;	
+}
+.endgame-table {
+	margin: 0 auto; 
+	table {
+		border: 1px solid black;
+	}
+}
+.output-modal {
+	margin: 0 auto; 
+	font-weight: bold;	
+	color: #02ac46;
+	table {
+		border: 1px solid black;
+	}
 }
 .player-score {
     margin: 55px auto;
